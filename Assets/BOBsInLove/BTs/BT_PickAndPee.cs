@@ -1,8 +1,8 @@
-using BTs;
 using UnityEngine;
+using BTs;
 
-[CreateAssetMenu(fileName = "BT_PickFlowers", menuName = "Behaviour Trees/BT_PickFlowers", order = 1)]
-public class BT_PickFlowers : BehaviourTree
+[CreateAssetMenu(fileName = "BT_PickAndPee", menuName = "Behaviour Trees/BT_PickAndPee", order = 1)]
+public class BT_PickAndPee : BehaviourTree
 {
     /* If necessary declare BT parameters here. 
        All public parameters must be of type string. All public parameters must be
@@ -23,40 +23,28 @@ public class BT_PickFlowers : BehaviourTree
 
      */
 
-    // construtor
-    public BT_PickFlowers()
-    {
+     // construtor
+    public BT_PickAndPee()  { 
         /* Receive BT parameters and set them. Remember all are of type string */
     }
-
+    
     public override void OnConstruction()
     {
-        BOB_Blackboard bl;
-        bl = (BOB_Blackboard)blackboard;
+        BT_Pee Pee = ScriptableObject.CreateInstance<BT_Pee>();
+        BT_PickFlowers PickFlowers = ScriptableObject.CreateInstance<BT_PickFlowers>();
 
         DynamicSelector dyn = new DynamicSelector();
 
-        dyn.AddChild(new CONDITION_InstanceNear("flowerDetectionRadius", "FLOWER", "false", "flower"),
+        dyn.AddChild(new CONDITION_NeedToPee(),
             new Sequence(
-                new ACTION_Arrive("flower"),
-                new ACTION_Deactivate("flower"),
-                new LambdaAction(() =>
-                {
-                    bl.flowers++;
-                    return Status.SUCCEEDED;
-                })
+                Pee,
+                new ACTION_RunForever()
                 )
-        );
-
-        dyn.AddChild(new CONDITION_AlwaysTrue(),
-            new ACTION_CWander("thePark", "80", "40", "0.2", "0.8")
-        );
-
-        new RepeatForeverDecorator(
-            dyn
             );
 
-
+        dyn.AddChild(new CONDITION_AlwaysTrue(),
+            PickFlowers
+            );
 
         root = dyn;
         /* Write here (method OnConstruction) the code that constructs the Behaviour Tree 

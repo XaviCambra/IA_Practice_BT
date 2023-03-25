@@ -31,39 +31,32 @@ public class BT_Pee : BehaviourTree
 
     public override void OnConstruction()
     {
-        BOB_Blackboard bl;
-        bl = (BOB_Blackboard)blackboard;
+        BOB_Blackboard bl = (BOB_Blackboard)blackboard;
 
         Sequence dyn = new Sequence(
             new ACTION_Speak("Gotta take a leak..."),
             new ACTION_Arrive("wc"),
+            new ACTION_Quiet(),
             new LambdaAction(() =>
             {
                 bl.CloseDoor();
-                new ACTION_WaitForSeconds("4");
+                return Status.SUCCEEDED;
+            }),
+            new ACTION_WaitForSeconds("4"),
+            new LambdaAction(() =>
+            {
                 bl.OpenDoor();
                 return Status.SUCCEEDED;
             }),
-            new LambdaAction(() =>
-            {
-                bl.CloseDoor();
-                new ACTION_WaitForSeconds("4");
-                bl.OpenDoor();
-                return Status.SUCCEEDED;
-            }),
-            new LambdaAction(() =>
-            {
-                new ACTION_Speak("OH!!! I needed this");
-                new ACTION_WaitForSeconds("2");
-                new ACTION_Quiet();
-                return Status.SUCCEEDED;
-            }),
+            new ACTION_Speak("OH!!! I needed this"),
+            new ACTION_WaitForSeconds("2"),
+            new ACTION_Quiet(),
             new LambdaAction(() =>
             {
                 bl.PeeAlarmOff();
                 return Status.SUCCEEDED;
             })
-            );
+        );
         
         root = dyn;
 

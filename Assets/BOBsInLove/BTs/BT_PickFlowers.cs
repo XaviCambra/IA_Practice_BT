@@ -1,8 +1,8 @@
-using UnityEngine;
 using BTs;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "BT_PickAndPee", menuName = "Behaviour Trees/BT_PickAndPee", order = 1)]
-public class BT_PickAndPee : BehaviourTree
+[CreateAssetMenu(fileName = "BT_PickFlowers", menuName = "Behaviour Trees/BT_PickFlowers", order = 1)]
+public class BT_PickFlowers : BehaviourTree
 {
     /* If necessary declare BT parameters here. 
        All public parameters must be of type string. All public parameters must be
@@ -23,26 +23,39 @@ public class BT_PickAndPee : BehaviourTree
 
      */
 
-     // construtor
-    public BT_PickAndPee()  { 
+    // construtor
+    public BT_PickFlowers()
+    {
         /* Receive BT parameters and set them. Remember all are of type string */
     }
-    
+
     public override void OnConstruction()
     {
-        BT_Pee Pee = ScriptableObject.CreateInstance<BT_Pee>();
-
-        BOB_Blackboard bl;
-        bl = (BOB_Blackboard)blackboard;
+        BOB_Blackboard bl = (BOB_Blackboard)blackboard;
 
         DynamicSelector dyn = new DynamicSelector();
 
-        dyn.AddChild(new CONDITION_NeedToPee(),
+        RepeatForeverDecorator repeatForever = new RepeatForeverDecorator();
+
+        dyn.AddChild(new CONDITION_InstanceNear("flowerDetectionRadius", "flowerTag", "false", "flower"),
             new Sequence(
-                Pee
-                //La cosa del forever run k n entiendo
+                new ACTION_Arrive("flower"),
+                new ACTION_Deactivate("flower"),
+                new LambdaAction(() =>
+                {
+                    bl.flowers++;
+                    return Status.SUCCEEDED;
+                })
                 )
-            );
+        );
+
+        dyn.AddChild(new CONDITION_AlwaysTrue(),
+            new ACTION_CWander("thePark", "80", "40", "0.2", "0.8")
+        );
+
+        repeatForever.AddChild(dyn);
+
+        root = repeatForever;
         /* Write here (method OnConstruction) the code that constructs the Behaviour Tree 
            Remember to set the root attribute to a proper node
            e.g.

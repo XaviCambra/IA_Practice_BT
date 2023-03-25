@@ -10722,6 +10722,7 @@ MonoBehaviour:
   theToilet: {fileID: 2055348872}
   theJewellery: {fileID: 670082379}
   daisys: {fileID: 449960112}
+  flowerTag: FLOWER
 --- !u!114 &1101422861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10816,7 +10817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53860486cf18188428b968e8fecc55f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourTree: {fileID: 11400000, guid: 0695b1774cf22004ebcc1c3bc1181c83, type: 2}
+  behaviourTree: {fileID: 11400000, guid: 6d577f3d271859c48b74cf838e9daf60, type: 2}
   status: LIMBO
 --- !u!1 &1102464209
 GameObject:

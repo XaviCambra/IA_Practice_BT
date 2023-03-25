@@ -23,6 +23,8 @@ public class BOB_Blackboard : DynamicBlackboard {
     private TextMesh moneyLine;
     private TextMesh flowersLine;
 
+    public string flowerTag = "FLOWER";
+
     // Use this for initialization
     void Start () {
         moneyLine = GameObject.Find("MoneyLine").GetComponent<TextMesh>();
