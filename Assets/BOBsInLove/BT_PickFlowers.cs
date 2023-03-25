@@ -36,21 +36,24 @@ public class BT_PickFlowers : BehaviourTree
 
         DynamicSelector dyn = new DynamicSelector();
 
+        dyn.AddChild(new CONDITION_InstanceNear("flowerDetectionRadius", "FLOWER", "false", "flower"),
+            new Sequence(
+                new ACTION_Arrive("flower"),
+                new ACTION_Deactivate("flower"),
+                new LambdaAction(() =>
+                {
+                    bl.flowers++;
+                    return Status.SUCCEEDED;
+                })
+                )
+        );
+
+        dyn.AddChild(new CONDITION_AlwaysTrue(),
+            new ACTION_CWander("thePark", "80", "40", "0.2", "0.8")
+        );
+
         new RepeatForeverDecorator(
-            dyn.AddChild(new CONDITION_InstanceNear("flowerDetectionRadius", "FLOWER", "false", "flower"),
-                new Sequence(
-                    new ACTION_Arrive("flower"),
-                    new ACTION_Deactivate("flower"),
-                    new LambdaAction(() =>
-                    {
-                        bl.flowers++;
-                        return Status.SUCCEEDED;
-                    })
-                    )
-            ),
-            dyn.AddChild(new CONDITION_AlwaysTrue(),
-                new ACTION_CWander("thePark", "80", "40", "0.2", "0.8")
-            )
+            dyn
             );
 
 
