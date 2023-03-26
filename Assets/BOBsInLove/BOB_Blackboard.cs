@@ -105,6 +105,20 @@ public class BOB_Blackboard : DynamicBlackboard {
         if (door != null) door.SetActive(false);
     }
 
+    public bool IsRing()
+    {
+        GameObject ring = FindChildWithTag(theJewellery, "RING");
+        if(ring != null)
+        {
+            return true;
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private static GameObject FindChildWithTag(GameObject go, string tag)
     {
         for (int i = 0; i < go.transform.childCount; i++)

@@ -15,7 +15,7 @@ public class BT_BuyPresent : BehaviourTree
             new ACTION_Arrive("TheJewellery", "1.0"),
             new Selector(
                 new Sequence(
-                    //CONDICION
+                    new CONDITION_IsRing(),
                     new ACTION_PayJewel(),
                     new ACTION_ActivateRing()
                 ),
