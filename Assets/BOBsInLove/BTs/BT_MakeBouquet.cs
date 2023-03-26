@@ -42,13 +42,23 @@ public class BT_MakeBouquet : BehaviourTree
 
         BOB_Blackboard bl = (BOB_Blackboard)blackboard;
 
-        root.AddChild(new CONDITION_EnoughFlowers(),
-                new LambdaAction( () =>
+        BT_PickAndPee pickAndPee = ScriptableObject.CreateInstance<BT_PickAndPee>();
+
+        DynamicSelector dyn = new DynamicSelector();
+
+        dyn.AddChild(new CONDITION_EnoughFlowers(),
+                new LambdaAction(() =>
                 {
                     bl.ActivateBouquet();
                     return Status.SUCCEEDED;
                 }
             )
         );
+
+        dyn.AddChild(new CONDITION_AlwaysTrue(),
+            pickAndPee
+        );
+
+        root = dyn;
     }
 }
