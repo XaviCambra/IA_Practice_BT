@@ -9,6 +9,7 @@ public class BOB_Blackboard : DynamicBlackboard {
     public int requiredFlowersForBouquet = 25;
     public int jewelPrice = 55;
     public int flowers = 0;
+    public bool rejected = false;
 
     public bool peeAlarm = false; // when true, it may be urgent to find a toilet...
 

@@ -11484,7 +11484,7 @@ GameObject:
   - component: {fileID: 1101422864}
   m_Layer: 0
   m_Name: BOB
-  m_TagString: Untagged
+  m_TagString: BOB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11674,6 +11674,7 @@ MonoBehaviour:
   requiredFlowersForBouquet: 25
   jewelPrice: 55
   flowers: 0
+  rejected: 0
   peeAlarm: 0
   thePark: {fileID: 181009261}
   boxesArea: {fileID: 674981483}
@@ -11681,7 +11682,6 @@ MonoBehaviour:
   wc: {fileID: 1922283893}
   theToilet: {fileID: 2055348872}
   theJewellery: {fileID: 670082379}
-  theSeedStore: {fileID: 0}
   daisys: {fileID: 449960112}
   flowerTag: FLOWER
 --- !u!114 &1101422861

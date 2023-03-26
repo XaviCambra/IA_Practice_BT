@@ -45,10 +45,9 @@ public class BT_Daisy : BehaviourTree
             pace
         );
 
+        RandomSelector randomSelector = new RandomSelector();
 
-        DynamicSelector dyn = new DynamicSelector();
-        dyn.AddChild(
-            new CONDITION_InstanceNear("15", "BOUQUET", "true"),
+        randomSelector.AddChild(
             new Sequence(
                 new ACTION_Speak("Finally here!"),
                 new ACTION_WaitForSeconds("7"),
@@ -57,7 +56,24 @@ public class BT_Daisy : BehaviourTree
                 new ACTION_Activate("hearts"),
                 new ACTION_RunForever()
             )
-        ) ;
+        );
+
+        randomSelector.AddChild(
+            new Sequence(
+                new ACTION_Quiet(),
+                new ACTION_Speak("This flowers are from the park?"),
+                new ACTION_WaitForSeconds("4"),
+                new ACTION_Speak("Get out!"),
+                new ACTION_WaitForSeconds("4"),
+                new ACTION_Quiet()
+            )
+        );
+
+        DynamicSelector dyn = new DynamicSelector();
+        dyn.AddChild(
+            new CONDITION_InstanceNear("15", "BOUQUET", "true"),
+            randomSelector
+        );
         dyn.AddChild(
             new CONDITION_AlwaysTrue(),
             paceAndMumble

@@ -14,6 +14,8 @@ public class BT_BigBob : BehaviourTree
         BT_MakeBouquet makeBouquet = ScriptableObject.CreateInstance<BT_MakeBouquet>();
         BT_BuyPresent jewel = ScriptableObject.CreateInstance<BT_BuyPresent>();
 
+        BOB_Blackboard bl = (BOB_Blackboard)blackboard;
+
         Sequence sq = new Sequence(
             work,
             makeBouquet,

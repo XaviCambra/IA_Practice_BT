@@ -40,7 +40,7 @@ public class BT_PickFlowers : BehaviourTree
         dyn.AddChild(new CONDITION_InstanceNear("flowerDetectionRadius", "flowerTag", "false", "flower"),
             new Sequence(
                 new ACTION_Arrive("flower"),
-                new ACTION_Deactivate("flower"),
+                new ACTION_Reactivate("flower"),
                 new LambdaAction(() =>
                 {
                     bl.flowers++;
