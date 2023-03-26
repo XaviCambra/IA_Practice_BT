@@ -33,6 +33,8 @@ public class ACTION_Work : Action
     public override Status OnTick ()
     {
         fsm.Update();
+        if (fsm.InSuccess()) return Status.SUCCEEDED;
+        else if (fsm.InFailure()) return Status.FAILED;
         return Status.RUNNING;
         
     }

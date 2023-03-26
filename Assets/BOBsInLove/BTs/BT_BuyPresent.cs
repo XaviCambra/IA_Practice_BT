@@ -11,7 +11,7 @@ public class BT_BuyPresent : BehaviourTree
     
     public override void OnConstruction()
     {
-        new Sequence(
+        root = new Sequence(
             new ACTION_Arrive("TheJewellery", "1.0"),
             new Selector(
                 new Sequence(
