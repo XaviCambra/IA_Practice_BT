@@ -8,7 +8,7 @@ namespace BTs
         public BehaviourTree behaviourTree;
         public string status = Status.LIMBO.ToString();
 
-        public void Start()
+        public void OnEnable()
         {
             
             if (behaviourTree == null) return;
